@@ -76,7 +76,7 @@ export const photos: Photo[] = [
   },
   {
     slug: "sea",
-    src: "/images/travel/sea.JPG",
+    src: "/images/travel/sea.jpg",
     width: 1600,
     height: 2000,
     category: "travel",
@@ -96,7 +96,7 @@ export const photos: Photo[] = [
   },
   {
     slug: "beach",
-    src: "/images/travel/beach.JPG",
+    src: "/images/travel/beach.jpg",
     width: 1600,
     height: 2000,
     category: "travel",
@@ -106,7 +106,7 @@ export const photos: Photo[] = [
   },
   {
     slug: "temple_of_tooth_relic",
-    src: "/images/travel/temple_of_tooth_relic.JPG",
+    src: "/images/travel/temple_of_tooth_relic.jpg",
     width: 1600,
     height: 2000,
     category: "travel",
@@ -116,7 +116,7 @@ export const photos: Photo[] = [
   },
     {
     slug: "monk",
-    src: "/images/travel/monk.JPG",
+    src: "/images/travel/monk.jpg",
     width: 1600,
     height: 2000,
     category: "travel",
@@ -166,7 +166,7 @@ export const photos: Photo[] = [
   },
   {
     slug: "maligawa",
-    src: "/images/travel/maligawa.jpg",
+    src: "/images/travel/maligawa.JPG",
     width: 1600,
     height: 2000,
     category: "travel",
@@ -176,7 +176,7 @@ export const photos: Photo[] = [
   },
   {
     slug: "lotus",
-    src: "/images/travel/lotus.jpg",
+    src: "/images/travel/lotus.JPG",
     width: 1600,
     height: 2000,
     category: "travel",
@@ -361,7 +361,7 @@ export const photos: Photo[] = [
   },
   {
     slug: "street_drawing",
-    src: "/images/street/street_drawing.jpg",
+    src: "/images/street/street_drawing.JPG",
     width: 1600,
     height: 1067,
     category: "street",
@@ -394,7 +394,7 @@ export const photos: Photo[] = [
   },
   {
     slug: "men_near_stall",
-    src: "/images/street/men_near_stall.jpg",
+    src: "/images/street/men_near_stall.JPG",
     width: 1600,
     height: 2000,
     category: "street",
@@ -414,7 +414,7 @@ export const photos: Photo[] = [
   },
     {
     slug: "street_lamps",
-    src: "/images/street/street_lamps.JPG",
+    src: "/images/street/street_lamps.jpg",
     width: 1600,
     height: 2000,
     category: "street",
@@ -432,7 +432,7 @@ export const photos: Photo[] = [
     height: 2000,
     category: "wildlife",
     title: "Wading Egret",
-    location: "Katharagama, Sri Lanka",
+    location: "Polonnaruwa, Sri Lanka",
     featured: true,
   },
 
