@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { categories } from "@/lib/photos";
@@ -16,57 +17,72 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const linkClass = `transition-colors ${
+    solid ? "text-ink/70 hover:text-ink" : "text-ink hover:text-ink/80 [text-shadow:0_1px_6px_rgba(0,0,0,0.6)]"
+  }`;
+
   return (
     <header
       className={`fixed top-0 z-50 w-full transition-colors duration-500 ${
-        solid ? "bg-bg/90 backdrop-blur-md border-b border-line" : "bg-transparent"
+        solid ? "bg-bg/90 backdrop-blur-md border-b border-line" : "bg-gradient-to-b from-black/40 to-transparent"
       }`}
     >
-      <nav className="flex items-center justify-between px-6 md:px-10 h-20">
-        <Link href="/" className="font-display text-xl tracking-tight text-ink">
-          Ashan Perera
+      <nav className="flex items-center justify-between px-6 md:px-10 h-24 md:h-28">
+        <Link href="/" className="flex items-center shrink-0">
+          <Image
+            src="/images/brand/photo-logo-removebg-3.png"
+            alt="Mahesha Piyumantha Photography"
+            width={160}
+            height={160}
+            priority
+            className="h-20 w-auto md:h-28"
+          />
         </Link>
-        <ul className="hidden md:flex items-center gap-8 text-sm text-muted">
+        <ul className="hidden md:flex items-center gap-8 text-sm">
           {categories.map((c) => (
             <li key={c.key}>
               <Link
                 href={`/${c.key}`}
-                className={`hover:text-ink transition-colors ${
-                  pathname === `/${c.key}` ? "text-ink" : ""
-                }`}
+                className={`${linkClass} ${pathname === `/${c.key}` ? "text-ink font-medium" : ""}`}
               >
                 {c.label}
               </Link>
             </li>
           ))}
           <li>
-            <Link href="/about" className="hover:text-ink transition-colors">
+            <Link href="/about" className={linkClass}>
               About
             </Link>
           </li>
           <li>
             <Link
               href="/contact"
-              className="text-ink border border-line rounded-full px-4 py-1.5 hover:border-ink transition-colors"
+              className={`rounded-full border px-4 py-1.5 transition-colors ${
+                solid
+                  ? "border-line text-ink hover:border-ink"
+                  : "border-ink/60 text-ink hover:border-ink [text-shadow:0_1px_6px_rgba(0,0,0,0.6)]"
+              }`}
             >
               Contact
             </Link>
           </li>
         </ul>
-        <MobileMenu pathname={pathname} />
+        <MobileMenu pathname={pathname} solid={solid} />
       </nav>
     </header>
   );
 }
 
-function MobileMenu({ pathname }: { pathname: string }) {
+function MobileMenu({ pathname, solid }: { pathname: string; solid: boolean }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="md:hidden">
       <button
         aria-label="Toggle menu"
         onClick={() => setOpen((v) => !v)}
-        className="text-ink text-sm border border-line rounded-full px-4 py-1.5"
+        className={`text-sm rounded-full border px-4 py-1.5 transition-colors ${
+          solid ? "text-ink border-line" : "text-ink border-ink/60 [text-shadow:0_1px_6px_rgba(0,0,0,0.6)]"
+        }`}
       >
         {open ? "Close" : "Menu"}
       </button>

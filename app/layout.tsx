@@ -18,9 +18,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Ashan Perera — Photography",
-  description: "Travel, wildlife, street and macro photography by Ashan Perera.",
-  metadataBase: new URL("https://ashanperera.com"),
+  title: "Mahesha Piyumantha Photography",
+  description: "Travel, wildlife, street and macro photography by Mahesha Piyumantha.",
+  metadataBase: new URL("https://maheshapiyumantha.com"),
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
