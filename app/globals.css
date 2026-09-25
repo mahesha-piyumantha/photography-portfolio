@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #14130f;
+  --bg-elevated: #1b1a15;
+  --ink: #f4f1ea;
+  --muted: #8c887f;
+  --line: #2a2822;
+
+  --travel: #c08a4e;
+  --wildlife: #5e7a5a;
+  --street: #7d7972;
+  --macro: #3e7a78;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-travel: var(--travel);
+  --color-wildlife: var(--wildlife);
+  --color-street: var(--street);
+  --color-macro: var(--macro);
+  --font-display: var(--font-fraunces);
+  --font-body: var(--font-inter);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body), ui-sans-serif, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
