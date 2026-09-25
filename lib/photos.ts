@@ -438,7 +438,7 @@ export const photos: Photo[] = [
 
   {
     slug: "elephant",
-    src: "/images/wildlife/elephant.jpg",
+    src: "/images/wildlife/elephant.JPG",
     width: 1600,
     height: 2000,
     category: "wildlife",
