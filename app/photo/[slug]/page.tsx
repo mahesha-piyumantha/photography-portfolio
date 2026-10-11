@@ -2,12 +2,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import PhotoViewer from "@/components/gallery/PhotoViewer";
-import { getPhotoBySlug, photos } from "@/lib/photos";
+import { getAllPhotos } from "@/lib/photo-queries";
 
-export function generateStaticParams() {
-  return photos.map((p) => ({
-    slug: p.slug,
-  }));
+export async function generateStaticParams() {
+  const photos = await getAllPhotos();
+  return photos.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({
@@ -16,7 +15,8 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const photo = getPhotoBySlug(slug);
+  const photos = await getAllPhotos();
+  const photo = photos.find((p) => p.slug === slug);
 
   if (!photo) return {};
 
@@ -35,33 +35,24 @@ export default async function PhotoPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const photo = getPhotoBySlug(slug);
+  const photos = await getAllPhotos();
+  const photo = photos.find((p) => p.slug === slug);
 
   if (!photo) {
     notFound();
   }
 
-  const collectionPhotos = photos.filter(
-    (p) => p.category === photo.category
-  );
+  const collectionPhotos = photos.filter((p) => p.category === photo.category);
+  const currentIndex = collectionPhotos.findIndex((p) => p.slug === photo.slug);
 
-  const currentIndex = collectionPhotos.findIndex(
-    (p) => p.slug === photo.slug
-  );
-
-  const previous =
-    currentIndex > 0
-      ? collectionPhotos[currentIndex - 1]
-      : undefined;
-
+  const previous = currentIndex > 0 ? collectionPhotos[currentIndex - 1] : undefined;
   const next =
     currentIndex < collectionPhotos.length - 1
       ? collectionPhotos[currentIndex + 1]
       : undefined;
 
   return (
-    <main className="px-6 pb-24 pt-28 md:px-10">
-      {/* Back */}
+    <div className="px-6 pb-24 pt-28 md:px-10">
       <Link
         href={`/${photo.category}`}
         className="group inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-ink"
@@ -74,7 +65,6 @@ export default async function PhotoPage({
       </Link>
 
       <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-[1fr_320px]">
-        {/* Photo */}
         <PhotoViewer
           photo={photo}
           previous={previous}
@@ -83,7 +73,6 @@ export default async function PhotoPage({
           total={collectionPhotos.length}
         />
 
-        {/* Information */}
         <aside className="lg:sticky lg:top-28 lg:self-start">
           <p className="text-xs uppercase tracking-[0.25em] text-muted">
             {photo.category}
@@ -94,15 +83,11 @@ export default async function PhotoPage({
           </h1>
 
           {photo.location && (
-            <p className="mt-3 text-sm text-muted">
-              {photo.location}
-            </p>
+            <p className="mt-3 text-sm text-muted">{photo.location}</p>
           )}
 
           {photo.story && (
-            <p className="mt-8 leading-relaxed text-ink/80">
-              {photo.story}
-            </p>
+            <p className="mt-8 leading-relaxed text-ink/80">{photo.story}</p>
           )}
 
           {(photo.camera || photo.lens || photo.settings) && (
@@ -110,27 +95,21 @@ export default async function PhotoPage({
               {photo.camera && (
                 <div className="flex justify-between gap-6 border-b border-line py-3">
                   <dt className="text-muted">Camera</dt>
-                  <dd className="text-right text-ink">
-                    {photo.camera}
-                  </dd>
+                  <dd className="text-right text-ink">{photo.camera}</dd>
                 </div>
               )}
 
               {photo.lens && (
                 <div className="flex justify-between gap-6 border-b border-line py-3">
                   <dt className="text-muted">Lens</dt>
-                  <dd className="text-right text-ink">
-                    {photo.lens}
-                  </dd>
+                  <dd className="text-right text-ink">{photo.lens}</dd>
                 </div>
               )}
 
               {photo.settings && (
                 <div className="flex justify-between gap-6 py-3">
                   <dt className="text-muted">Settings</dt>
-                  <dd className="text-right text-ink">
-                    {photo.settings}
-                  </dd>
+                  <dd className="text-right text-ink">{photo.settings}</dd>
                 </div>
               )}
             </dl>
@@ -150,6 +129,6 @@ export default async function PhotoPage({
           </Link>
         </aside>
       </div>
-    </main>
+    </div>
   );
 }

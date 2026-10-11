@@ -2,11 +2,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import MasonryGrid from "@/components/gallery/MasonryGrid";
-import {
-  categories,
-  getPhotosByCategory,
-  type Category,
-} from "@/lib/photos";
+import { categories, type Category } from "@/lib/photos";
+import { getPhotosByCategory } from "@/lib/photo-queries";
 
 const valid = categories.map((c) => c.key);
 
@@ -41,15 +38,11 @@ export default async function CategoryPage({
     notFound();
   }
 
-  const category = categories.find(
-    (c) => c.key === categoryParam
-  )!;
-
-  const categoryPhotos = getPhotosByCategory(category.key);
+  const category = categories.find((c) => c.key === categoryParam)!;
+  const categoryPhotos = await getPhotosByCategory(category.key);
 
   return (
-    <main className="pt-32 pb-24">
-      {/* Header */}
+    <div className="pt-32 pb-24">
       <section className="px-6 md:px-10">
         <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div>
@@ -78,7 +71,6 @@ export default async function CategoryPage({
         </div>
       </section>
 
-      {/* Category navigation */}
       <nav
         aria-label="Photography collections"
         className="mt-12 overflow-x-auto border-y border-line px-6 md:px-10"
@@ -104,10 +96,9 @@ export default async function CategoryPage({
         </div>
       </nav>
 
-      {/* Gallery */}
       <section className="mt-12">
         <MasonryGrid photos={categoryPhotos} />
       </section>
-    </main>
+    </div>
   );
 }
